@@ -20,7 +20,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role getByName(String name) {
-        return roleRepository.getByName(Role.RoleName.valueOf(name)).orElseThrow(()
+        return roleRepository.getByRoleName(Role.RoleName.valueOf(name)).orElseThrow(()
                 -> new NoSuchEntityException("There is no such role " + name));
     }
 }
