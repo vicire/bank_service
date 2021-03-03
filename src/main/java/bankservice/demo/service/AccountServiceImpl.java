@@ -15,25 +15,18 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void create(Account account) {
+    public void save(Account account) {
         accountRepository.save(account);
     }
 
     @Override
     public List<Account> getByPhoneNumber(String phoneNumber) {
-        return accountRepository.getByPhoneNumber(phoneNumber);
+        return accountRepository.getByUserPhoneNumber(phoneNumber);
     }
 
     @Override
     public Account getByAccountNumber(String accountNumber) {
         return accountRepository.findAccountByAccountNumber(accountNumber).orElseThrow(()
                 -> new NoSuchEntityException("There is no account with number " + accountNumber));
-    }
-
-    @Override
-    public void block(String accountNumber) {
-        Account account = getByAccountNumber(accountNumber);
-        account.setStatus(false);
-        accountRepository.save(account);
     }
 }

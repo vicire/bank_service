@@ -26,7 +26,7 @@ public class Account {
     @Enumerated(EnumType.STRING)
     private Currency currency;
     private BigDecimal balance;
-    private boolean status;
+    private boolean isActive;
 
     @Override
     public String toString() {
@@ -35,6 +35,6 @@ public class Account {
                 + ", account number: " + accountNumber
                 + ", currency: " + currency
                 + ", balance " + balance
-                + ", status " + status + "}";
+                + ", status " + isActive + "}";
     }
 }

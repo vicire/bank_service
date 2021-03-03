@@ -4,11 +4,9 @@ import bankservice.demo.entity.Account;
 import java.util.List;
 
 public interface AccountService {
-    void create(Account account);
+    void save(Account account);
 
     List<Account> getByPhoneNumber(String phoneNumber);
 
     Account getByAccountNumber(String accountNumber);
-
-    void block(String accountNumber);
 }
