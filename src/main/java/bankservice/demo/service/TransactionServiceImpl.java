@@ -4,7 +4,9 @@ import bankservice.demo.entity.Account;
 import bankservice.demo.entity.Transaction;
 import bankservice.demo.repository.AccountRepository;
 import bankservice.demo.repository.TransactionRepository;
+import bankservice.demo.service.util.ClientService;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.domain.PageRequest;
@@ -15,11 +17,13 @@ import org.springframework.stereotype.Service;
 public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountService;
+    private final ClientService clientService;
 
     public TransactionServiceImpl(TransactionRepository transactionRepository,
-                                  AccountRepository accountService) {
+                                  AccountRepository accountService, ClientService clientService) {
         this.transactionRepository = transactionRepository;
         this.accountService = accountService;
+        this.clientService = clientService;
     }
 
     @Override
@@ -47,11 +51,16 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transactionIn = new Transaction();
         transactionIn.setAccountFrom(fromAccount);
         transactionIn.setAccountTo(toAccount);
-        transactionIn.setAmount(amount);
         transactionIn.setDate(LocalDateTime.now());
         transactionIn.setOperationType(Transaction.OperationType.INCOMING);
+        if (fromAccount.getCurrency() != toAccount.getCurrency()) {
+            BigDecimal rate = clientService.getRate(LocalDate.now(),
+                    fromAccount.getCurrency(), toAccount.getCurrency());
+            amount = amount.multiply(rate);
+        }
+        transactionIn.setAmount(amount);
+        toAccount.setBalance(toAccount.getBalance().add(amount));
         transactionRepository.save(transactionIn);
-        toAccount.setBalance(toAccount.getBalance().add(transactionIn.getAmount()));
         accountService.save(toAccount);
     }
 }
