@@ -4,12 +4,11 @@ import bankservice.demo.entity.Currency;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class ClientService {
     @Value(value = "$(service.url)")
-    private String value;
     private String url;
     private final HttpClient httpClient;
 

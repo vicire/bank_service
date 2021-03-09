@@ -51,7 +51,6 @@ public class TransactionServiceImpl implements TransactionService {
         Transaction transactionIn = new Transaction();
         transactionIn.setAccountFrom(fromAccount);
         transactionIn.setAccountTo(toAccount);
-        transactionIn.setAmount(amount);
         transactionIn.setDate(LocalDateTime.now());
         transactionIn.setOperationType(Transaction.OperationType.INCOMING);
         if (fromAccount.getCurrency() != toAccount.getCurrency()) {
@@ -59,6 +58,7 @@ public class TransactionServiceImpl implements TransactionService {
                     fromAccount.getCurrency(), toAccount.getCurrency());
             amount = amount.multiply(rate);
         }
+        transactionIn.setAmount(amount);
         toAccount.setBalance(toAccount.getBalance().add(amount));
         transactionRepository.save(transactionIn);
         accountService.save(toAccount);
