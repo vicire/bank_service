@@ -6,17 +6,14 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Set;
 import javax.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class InjectData {
     private final RoleService roleService;
     private final UserService userService;
-
-    public InjectData(RoleService roleService, UserService userService) {
-        this.roleService = roleService;
-        this.userService = userService;
-    }
 
     @PostConstruct
     private void injectRoles() {

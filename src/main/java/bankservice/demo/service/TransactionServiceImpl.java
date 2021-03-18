@@ -9,22 +9,17 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountService;
     private final ClientService clientService;
-
-    public TransactionServiceImpl(TransactionRepository transactionRepository,
-                                  AccountRepository accountService, ClientService clientService) {
-        this.transactionRepository = transactionRepository;
-        this.accountService = accountService;
-        this.clientService = clientService;
-    }
 
     @Override
     public List<Transaction> getAllByAccount(int page, int size, Account account) {

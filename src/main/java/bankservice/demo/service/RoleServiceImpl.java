@@ -3,15 +3,13 @@ package bankservice.demo.service;
 import bankservice.demo.entity.Role;
 import bankservice.demo.exception.NoSuchEntityException;
 import bankservice.demo.repository.RoleRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
-
-    public RoleServiceImpl(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
 
     @Override
     public Role save(Role role) {

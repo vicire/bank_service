@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClientService {
-    @Value(value = "$(service.url)")
+    @Value(value = "${service.url}")
     private String url;
     private final HttpClient httpClient;
 

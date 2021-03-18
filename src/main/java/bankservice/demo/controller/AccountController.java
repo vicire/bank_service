@@ -12,6 +12,7 @@ import bankservice.demo.service.mapper.TransactionMapper;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,21 +23,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/accounts")
 public class AccountController {
     private final AccountService accountService;
     private final AccountMapper accountMapper;
     private final TransactionService transactionService;
     private final TransactionMapper transactionMapper;
-
-    public AccountController(AccountService accountService, AccountMapper accountMapper,
-                             TransactionService transactionService,
-                             TransactionMapper transactionMapper) {
-        this.accountService = accountService;
-        this.accountMapper = accountMapper;
-        this.transactionService = transactionService;
-        this.transactionMapper = transactionMapper;
-    }
 
     @PostMapping
     public void create(@RequestBody AccountRequestDto accountRequestDto) {
@@ -65,7 +58,7 @@ public class AccountController {
         return accountService.getByAccountNumber(accountNumber).getBalance();
     }
 
-    @GetMapping("/history/{accountNumber}")
+    @GetMapping("/{accountNumber}/history")
     public List<TransactionResponseDto> getHistory(@PathVariable String accountNumber,
                                                    @RequestParam(defaultValue = "0") int page,
                                                    @RequestParam(defaultValue = "10") int size) {
@@ -78,6 +71,8 @@ public class AccountController {
 
     @PatchMapping("/{accountNumber}")
     public void block(@PathVariable String accountNumber) {
-        accountService.getByAccountNumber(accountNumber).setActive(false);
+        Account account = accountService.getByAccountNumber(accountNumber);
+        account.setActive(false);
+        accountService.save(account);
     }
 }

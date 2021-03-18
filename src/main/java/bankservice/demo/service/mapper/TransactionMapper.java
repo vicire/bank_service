@@ -2,17 +2,10 @@ package bankservice.demo.service.mapper;
 
 import bankservice.demo.dto.TransactionResponseDto;
 import bankservice.demo.entity.Transaction;
-import bankservice.demo.service.AccountService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TransactionMapper implements ResponseDtoMapper<TransactionResponseDto, Transaction> {
-    private final AccountService accountService;
-
-    public TransactionMapper(AccountService accountService) {
-        this.accountService = accountService;
-    }
-
     @Override
     public TransactionResponseDto toDto(Transaction transaction) {
         TransactionResponseDto transactionResponseDto = new TransactionResponseDto();

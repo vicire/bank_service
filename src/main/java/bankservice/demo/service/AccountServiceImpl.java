@@ -4,15 +4,13 @@ import bankservice.demo.entity.Account;
 import bankservice.demo.exception.NoSuchEntityException;
 import bankservice.demo.repository.AccountRepository;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
-
-    public AccountServiceImpl(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
 
     @Override
     public void save(Account account) {

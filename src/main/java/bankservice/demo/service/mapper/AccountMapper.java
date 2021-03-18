@@ -4,16 +4,14 @@ import bankservice.demo.dto.AccountRequestDto;
 import bankservice.demo.dto.AccountResponseDto;
 import bankservice.demo.entity.Account;
 import bankservice.demo.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class AccountMapper implements RequestDtoMapper<Account, AccountRequestDto>,
         ResponseDtoMapper<AccountResponseDto, Account> {
     private final UserService userService;
-
-    public AccountMapper(UserService userService) {
-        this.userService = userService;
-    }
 
     @Override
     public Account toEntity(AccountRequestDto accountRequestDto) {

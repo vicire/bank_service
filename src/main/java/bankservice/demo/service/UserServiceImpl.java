@@ -3,15 +3,13 @@ package bankservice.demo.service;
 import bankservice.demo.entity.User;
 import bankservice.demo.exception.NoSuchEntityException;
 import bankservice.demo.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public void create(User user) {

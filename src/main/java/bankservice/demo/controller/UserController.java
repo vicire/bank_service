@@ -8,6 +8,7 @@ import bankservice.demo.service.RoleService;
 import bankservice.demo.service.UserService;
 import bankservice.demo.service.mapper.UserMapper;
 import java.util.Set;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,18 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final RoleService roleService;
-
-    public UserController(UserService userService, UserMapper userMapper,
-                          RoleService roleService) {
-        this.userService = userService;
-        this.userMapper = userMapper;
-        this.roleService = roleService;
-    }
 
     @PostMapping
     public void create(@RequestBody UserRequestDto userRequestDto) {
