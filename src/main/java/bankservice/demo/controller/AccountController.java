@@ -12,6 +12,7 @@ import bankservice.demo.service.mapper.TransactionMapper;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -32,7 +33,7 @@ public class AccountController {
     private final TransactionMapper transactionMapper;
 
     @PostMapping
-    public void create(@RequestBody AccountRequestDto accountRequestDto) {
+    public void create(@RequestBody @Valid AccountRequestDto accountRequestDto) {
         Account account = accountMapper.toEntity(accountRequestDto);
         account.setActive(true);
         accountService.save(account);
@@ -46,7 +47,7 @@ public class AccountController {
     }
 
     @PostMapping("/transfer")
-    public void transfer(@RequestBody TransactionRequestDto transactionRequestDto) {
+    public void transfer(@RequestBody @Valid TransactionRequestDto transactionRequestDto) {
         transactionService.transfer(accountService
                         .getByAccountNumber(transactionRequestDto.getAccountFrom()),
                 accountService.getByAccountNumber(transactionRequestDto.getAccountTo()),

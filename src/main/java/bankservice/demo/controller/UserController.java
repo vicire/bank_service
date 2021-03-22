@@ -8,6 +8,7 @@ import bankservice.demo.service.RoleService;
 import bankservice.demo.service.UserService;
 import bankservice.demo.service.mapper.UserMapper;
 import java.util.Set;
+import javax.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,7 @@ public class UserController {
     private final RoleService roleService;
 
     @PostMapping
-    public void create(@RequestBody UserRequestDto userRequestDto) {
+    public void create(@RequestBody @Valid UserRequestDto userRequestDto) {
         User user = userMapper.toEntity(userRequestDto);
         Role role = roleService.getByName("USER");
         user.setRoles(Set.of(role));
@@ -37,7 +38,7 @@ public class UserController {
 
     @PutMapping("/{userId}")
     public void update(@PathVariable Long userId,
-                       @RequestBody UserRequestDto userRequestDto) {
+                       @RequestBody @Valid UserRequestDto userRequestDto) {
         User user = userMapper.toEntity(userRequestDto);
         user.setId(userId);
         user.setRoles(userService.getById(userId).getRoles());

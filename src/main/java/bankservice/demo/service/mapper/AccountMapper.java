@@ -3,6 +3,7 @@ package bankservice.demo.service.mapper;
 import bankservice.demo.dto.AccountRequestDto;
 import bankservice.demo.dto.AccountResponseDto;
 import bankservice.demo.entity.Account;
+import bankservice.demo.entity.Currency;
 import bankservice.demo.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,7 +19,7 @@ public class AccountMapper implements RequestDtoMapper<Account, AccountRequestDt
         Account account = new Account();
         account.setAccountNumber(accountRequestDto.getAccountNumber());
         account.setUser(userService.getById(accountRequestDto.getUserId()));
-        account.setCurrency(accountRequestDto.getCurrency());
+        account.setCurrency(Currency.valueOf(accountRequestDto.getCurrency()));
         account.setBalance(accountRequestDto.getBalance());
         return account;
     }
